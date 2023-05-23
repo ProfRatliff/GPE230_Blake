@@ -4,6 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
+#include "Engine/SkeletalMesh.h"
+#include "Camera/CameraComponent.h"
+
 #include "MazeCharacter.generated.h"
 
 UCLASS()
@@ -19,11 +23,21 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	UPROPERTY(EditAnywhere)
+		float moveSpeed;
+	UPROPERTY(EditAnywhere)
+		float rotationSpeed;
+
+private:
+	void MoveFB(float value);
+	void MoveLR(float value);
+	void Rotate(float value);
 };
