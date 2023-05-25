@@ -34,16 +34,28 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
 }
 
+/// <summary>
+/// Move forward or backward at a rate of "value" multiplied by moveSpeed.
+/// </summary>
+/// <param name="value"></param>
 void AMazeCharacter::MoveFB(float value)
 {
 	AddMovementInput(GetActorForwardVector(), value * moveSpeed);
 }
 
+/// <summary>
+/// Move left or right at a rate of "value" multiplied by moveSpeed.
+/// </summary>
+/// <param name="value"></param>
 void AMazeCharacter::MoveLR(float value)
 {
 	AddMovementInput(-GetActorRightVector(), value * moveSpeed);
 }
 
+/// <summary>
+/// Rotate at a rate of "value" multiplied by rotationSpeed.
+/// </summary>
+/// <param name="value"></param>
 void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * rotationSpeed);
