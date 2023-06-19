@@ -20,6 +20,8 @@ private:
 		float moveSpeed;
 	UPROPERTY(EditAnywhere)
 		float rotationSpeed;
+	UPROPERTY(EditAnywhere)
+	UAnimSequence* deathAnim;
 
 protected:
 	/// <summary>
@@ -33,6 +35,11 @@ public:
 	/// </summary>
 	UPROPERTY(EditAnywhere)
 	float maxHealth;
+
+	/// <summary>
+	/// Is this player dead and ready to restart the level?
+	/// </summary>
+	bool isDead = false;
 
 public:
 	// Sets default values for this character's properties

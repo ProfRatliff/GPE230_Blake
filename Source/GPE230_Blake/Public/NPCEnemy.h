@@ -26,4 +26,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable, Category = "Collision")
+		void DetectHit();
+
+private:
+	UPROPERTY(EditAnywhere)
+		float TraceRadius = 500.0f;
+	UPROPERTY(EditAnywhere)
+		FName PunchingHandSocketName;
+	UPROPERTY(EditAnywhere)
+		float HitDamage;
 };
