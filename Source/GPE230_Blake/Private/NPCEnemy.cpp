@@ -38,51 +38,47 @@ void ANPCEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 /// <summary>
 /// Detect objects hit by the punching fist.
 /// </summary>
-/// <param name="potentialDamage"></param>
-/// <param name="aggressor"></param>
 void ANPCEnemy::DetectHit()
 {
 	bool canDamage = true;
 
-	//Get location of the fist
-	const FVector PunchLocation = GetMesh()->GetSocketLocation(PunchingHandSocketName);
+	// Get location of the fist
+	const FVector PunchLocation = GetMesh()->GetSocketLocation(_PunchingHandSocketName);
 
-	//Don't detect this actor or its controller in the spheretrace
+	// Don't detect this actor or its controller in the spheretrace
 	TArray<AActor*> ActorsToIgnore;
 	ActorsToIgnore.Add(this);
 	ActorsToIgnore.Add(GetOwner());
 
-	//Array for actors hit by this spheretrace
+	// Array for actors hit by the spheretrace
 	TArray<FHitResult> HitArray;
 
-	//Spheretrace around fist for overlapped actors - true if there are any, false if there are none
-	const bool Hit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), PunchLocation, PunchLocation, TraceRadius,
+	// Spheretrace around fist for overlapped actors - true if there are any, false if there are none
+	const bool Hit = UKismetSystemLibrary::SphereTraceMulti(GetWorld(), PunchLocation, PunchLocation, _TraceRadius,
 		UEngineTypes::ConvertToTraceType(ECC_Camera), false, ActorsToIgnore, EDrawDebugTrace::None, HitArray,
 		true, FLinearColor::Red, FLinearColor::Green, 2.0f);
 
-	//Name of this actor (for debugging)
+	// Name of this actor (for debugging)
 	FString ownerName = this->GetName();
 
 	//If there is a valid hit
 	if (Hit)
 	{
-		//For each object that was hit
 		for (const FHitResult HitResult : HitArray)
 		{
 			if (canDamage)
 			{
 				FString hitActorName = HitResult.GetActor()->GetName();
 
-				UE_LOG(LogTemp, Log, TEXT("NPCEnemy actor \"%s\" hit other actor \"%s\", dealing %f damage."), *ownerName, *hitActorName, HitDamage);
+				UE_LOG(LogTemp, Log, TEXT("NPCEnemy actor \"%s\" hit other actor \"%s\", dealing %f damage."), *ownerName, *hitActorName, _HitDamage);
 
-				//Apply generic damage type
-				UGameplayStatics::ApplyDamage(HitResult.GetActor(), HitDamage, GetController(), this, UDamageType::StaticClass());
+				// Apply damage to the hit actor
+				UGameplayStatics::ApplyDamage(HitResult.GetActor(), _HitDamage, GetController(), this, UDamageType::StaticClass());
 
 				canDamage = false;
 			}
 		}
 	}
-	//If there is no valid hit
 	else
 	{
 		UE_LOG(LogTemp, Log, TEXT("NPCEnemy actor \"%s\" did not detect any valid hits on its last attack."), *ownerName);

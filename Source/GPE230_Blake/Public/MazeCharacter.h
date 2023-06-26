@@ -17,11 +17,13 @@ class GPE230_BLAKE_API AMazeCharacter : public ACharacter
 
 private:
 	UPROPERTY(EditAnywhere)
-		float moveSpeed;
+		float _moveSpeed;
 	UPROPERTY(EditAnywhere)
-		float rotationSpeed;
+		float _rotationSpeed;
 	UPROPERTY(EditAnywhere)
-	UAnimSequence* deathAnim;
+		UAnimSequence* _deathAnim;
+	UPROPERTY(EditAnywhere)
+		bool _isDead = false;
 
 protected:
 	/// <summary>
@@ -34,12 +36,7 @@ public:
 	/// The maximum and starting health for this character.
 	/// </summary>
 	UPROPERTY(EditAnywhere)
-	float maxHealth;
-
-	/// <summary>
-	/// Is this player dead and ready to restart the level?
-	/// </summary>
-	bool isDead = false;
+		float maxHealth;
 
 public:
 	// Sets default values for this character's properties

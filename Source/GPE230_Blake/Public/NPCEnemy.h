@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -31,9 +31,9 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-		float TraceRadius = 500.0f;
+		float _TraceRadius = 500.0f;
 	UPROPERTY(EditAnywhere)
-		FName PunchingHandSocketName;
+		FName _PunchingHandSocketName;
 	UPROPERTY(EditAnywhere)
-		float HitDamage;
+		float _HitDamage;
 };
