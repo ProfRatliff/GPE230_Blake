@@ -4,9 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/EngineBaseTypes.h"
 
 #include "Engine/SkeletalMesh.h"
 #include "Camera/CameraComponent.h"
+
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 #include "MazeCharacter.generated.h"
 
@@ -23,7 +27,12 @@ private:
 	UPROPERTY(EditAnywhere)
 		UAnimSequence* _deathAnim;
 	UPROPERTY(EditAnywhere)
-		bool _isDead = false;
+		UNiagaraSystem* _stunSystem;
+	UPROPERTY(EditAnywhere)
+		float _timeBetweenStuns;
+	bool _isDead = false;
+	float _stunCooldown;
+
 
 protected:
 	/// <summary>
@@ -60,4 +69,6 @@ private:
 	void MoveFB(float value);
 	void MoveLR(float value);
 	void Rotate(float value);
+	UFUNCTION(BlueprintCallable)
+	void ActivateStunParticleSystem();
 };

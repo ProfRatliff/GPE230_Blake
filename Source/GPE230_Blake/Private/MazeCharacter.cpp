@@ -60,6 +60,10 @@ void AMazeCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (_stunCooldown > 0)
+	{
+		_stunCooldown -= DeltaTime;
+	}
 }
 
 // Called to bind functionality to input
@@ -97,5 +101,26 @@ void AMazeCharacter::MoveLR(float value)
 void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * _rotationSpeed);
+}
+
+/// <summary>
+/// Briefly stun nearby enemies and activate a particle system to provide visual feedback for this action.
+/// </summary>
+void AMazeCharacter::ActivateStunParticleSystem()
+{
+	//Spawn a particle system and play it once
+	if (_stunSystem)
+	{
+		USceneComponent* AttachComp = GetDefaultAttachComponent();
+
+		UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAttached(_stunSystem, AttachComp, NAME_None,
+			FVector(0), FRotator(0), EAttachLocation::Type::KeepRelativeOffset, true);
+
+		NiagaraComp->Activate();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Player attempted to use stun ability, but no template particle system was found."));
+	}
 }
 
