@@ -28,10 +28,7 @@ private:
 		UAnimSequence* _deathAnim;
 	UPROPERTY(EditAnywhere)
 		UNiagaraSystem* _stunSystem;
-	UPROPERTY(EditAnywhere)
-		float _timeBetweenStuns;
 	bool _isDead = false;
-	float _stunCooldown;
 
 
 protected:
