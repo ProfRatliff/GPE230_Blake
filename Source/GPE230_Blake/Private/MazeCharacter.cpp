@@ -18,6 +18,30 @@ void AMazeCharacter::BeginPlay()
 }
 
 /// <summary>
+/// Apply incoming heal value to health and ensure it doesn't exceed max health.
+/// </summary>
+/// <param name="HealAmount"></param>
+/// <returns></returns>
+float AMazeCharacter::Heal(float HealAmount)
+{
+	if (!_isDead)
+	{
+		//Subtract incoming damage
+		_currentHealth += HealAmount;
+		_currentHealth = std::max(0.0f, std::min(_currentHealth, maxHealth));
+
+		UE_LOG(LogTemp, Log, TEXT("Player healed %f points.  %f health remaining."), HealAmount, _currentHealth);
+
+		if (_currentHealth <= 0)
+			Die();
+
+		return HealAmount;
+	}
+	else
+		return 0;
+}
+
+/// <summary>
 /// Apply incoming damage to health and check if the player was killed.
 /// </summary>
 /// <param name="DamageAmount">The amount of damage to be subtracted from current health.</param>
@@ -59,11 +83,6 @@ void AMazeCharacter::Die()
 void AMazeCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (_stunCooldown > 0)
-	{
-		_stunCooldown -= DeltaTime;
-	}
 }
 
 // Called to bind functionality to input

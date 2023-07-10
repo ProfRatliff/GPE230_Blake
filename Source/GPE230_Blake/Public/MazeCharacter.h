@@ -47,6 +47,7 @@ public:
 public:
 	// Sets default values for this character's properties
 	AMazeCharacter();
+	virtual float Heal(float HealAmount);
 
 protected:
 	// Called when the game starts or when spawned
