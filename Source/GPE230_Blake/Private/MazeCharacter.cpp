@@ -14,7 +14,13 @@ AMazeCharacter::AMazeCharacter()
 void AMazeCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	_controller = Cast<APlayerController>(GetController());
+
 	_currentHealth = maxHealth;
+
+	_gameOverScreenInstance = CreateWidget(GetWorld(), _gameOverScreenTemplate);
+	_victoryScreenInstance = CreateWidget(GetWorld(), _victoryScreenTemplate);
 }
 
 /// <summary>
@@ -71,12 +77,10 @@ void AMazeCharacter::Die()
 {
 	_isDead = true;
 	_currentHealth = 0;
-	_moveSpeed = 0;
-	_rotationSpeed = 0;
 
 	GetMesh()->PlayAnimation(_deathAnim, false);
 
-	//ToDo: Trigger game over state and prompt the player to restart the level
+	TriggerGameOverScreen();
 }
 
 // Called every frame
@@ -93,6 +97,40 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("MoveFB"), this, &AMazeCharacter::MoveFB);
 	PlayerInputComponent->BindAxis(TEXT("MoveLR"), this, &AMazeCharacter::MoveLR);
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
+}
+
+void AMazeCharacter::TriggerGameOverScreen()
+{
+	_gameOverScreenInstance->AddToViewport();
+
+	ShowMouseCursor();
+
+	FreezeCharacter();
+}
+
+void AMazeCharacter::TriggerVictoryScreen()
+{
+	_victoryScreenInstance->AddToViewport();
+
+	ShowMouseCursor();
+
+	PauseGameplay(true);
+}
+
+void AMazeCharacter::PauseGameplay(bool bIsPaused)
+{
+	_controller->SetPause(bIsPaused);
+}
+
+void AMazeCharacter::ShowMouseCursor()
+{
+	_controller->bShowMouseCursor = true;
+}
+
+void AMazeCharacter::FreezeCharacter()
+{
+	_moveSpeed = 0;
+	_rotationSpeed = 0;
 }
 
 /// <summary>

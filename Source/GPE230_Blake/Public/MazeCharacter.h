@@ -12,6 +12,8 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 
+#include "Blueprint/UserWidget.h"
+
 #include "MazeCharacter.generated.h"
 
 UCLASS()
@@ -28,6 +30,12 @@ private:
 		UAnimSequence* _deathAnim;
 	UPROPERTY(EditAnywhere)
 		UNiagaraSystem* _stunSystem;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> _gameOverScreenTemplate;
+	UUserWidget* _gameOverScreenInstance;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> _victoryScreenTemplate;
+	UUserWidget* _victoryScreenInstance;
 	bool _isDead = false;
 
 
@@ -36,6 +44,11 @@ protected:
 	/// The current health of this character.
 	/// </summary>
 	float _currentHealth;
+
+	/// <summary>
+	/// The controller that manages this character.
+	/// </summary>
+	APlayerController* _controller;
 
 public:
 	/// <summary>
@@ -55,6 +68,10 @@ protected:
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
 		AActor* DamageCauser) override;
 	virtual void Die();
+	virtual void TriggerGameOverScreen();
+	virtual void PauseGameplay(bool bIsPaused);
+	virtual void ShowMouseCursor();
+	virtual void FreezeCharacter();
 
 public:
 	// Called every frame
@@ -62,6 +79,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void TriggerVictoryScreen();
 
 private:
 	void MoveFB(float value);
