@@ -117,6 +117,11 @@ void AMazeCharacter::OpenVictoryScreen()
 	PauseGameplay(true);
 }
 
+float AMazeCharacter::GetCurrentHealth()
+{
+	return _currentHealth;
+}
+
 void AMazeCharacter::PauseGameplay(bool bIsPaused)
 {
 	_controller->SetPause(bIsPaused);

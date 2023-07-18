@@ -54,7 +54,7 @@ public:
 	/// <summary>
 	/// The maximum and starting health for this character.
 	/// </summary>
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		float maxHealth;
 
 public:
@@ -81,6 +81,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void OpenVictoryScreen();
+	UFUNCTION(BlueprintCallable)
+	virtual float GetCurrentHealth();
 
 private:
 	void MoveFB(float value);
