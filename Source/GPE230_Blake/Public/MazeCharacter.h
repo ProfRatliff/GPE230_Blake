@@ -68,7 +68,7 @@ protected:
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
 		AActor* DamageCauser) override;
 	virtual void Die();
-	virtual void TriggerGameOverScreen();
+	virtual void OpenGameOverScreen();
 	virtual void PauseGameplay(bool bIsPaused);
 	virtual void ShowMouseCursor();
 	virtual void FreezeCharacter();
@@ -80,7 +80,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void TriggerVictoryScreen();
+	virtual void OpenVictoryScreen();
 
 private:
 	void MoveFB(float value);

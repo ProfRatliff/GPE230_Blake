@@ -17,5 +17,5 @@ void AVictoryTriggerVolume::CheckActorType(AActor* OverlappedActor, AActor* Othe
 
 void AVictoryTriggerVolume::OpenVictoryScreen(AMazeCharacter* PlayerChar)
 {
-	PlayerChar->TriggerVictoryScreen();
+	PlayerChar->OpenVictoryScreen();
 }

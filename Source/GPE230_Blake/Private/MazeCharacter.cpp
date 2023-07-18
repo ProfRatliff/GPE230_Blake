@@ -80,7 +80,7 @@ void AMazeCharacter::Die()
 
 	GetMesh()->PlayAnimation(_deathAnim, false);
 
-	TriggerGameOverScreen();
+	OpenGameOverScreen();
 }
 
 // Called every frame
@@ -99,7 +99,7 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
 }
 
-void AMazeCharacter::TriggerGameOverScreen()
+void AMazeCharacter::OpenGameOverScreen()
 {
 	_gameOverScreenInstance->AddToViewport();
 
@@ -108,7 +108,7 @@ void AMazeCharacter::TriggerGameOverScreen()
 	FreezeCharacter();
 }
 
-void AMazeCharacter::TriggerVictoryScreen()
+void AMazeCharacter::OpenVictoryScreen()
 {
 	_victoryScreenInstance->AddToViewport();
 
