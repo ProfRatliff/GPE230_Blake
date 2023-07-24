@@ -36,6 +36,9 @@ private:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<UUserWidget> _victoryScreenTemplate;
 	UUserWidget* _victoryScreenInstance;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> _pauseMenuTemplate;
+	UUserWidget* _pauseMenuInstance;
 	bool _isDead = false;
 
 
@@ -88,6 +91,7 @@ private:
 	void MoveFB(float value);
 	void MoveLR(float value);
 	void Rotate(float value);
+	void OpenPauseMenu();
 	UFUNCTION(BlueprintCallable)
 	void ActivateStunParticleSystem();
 };

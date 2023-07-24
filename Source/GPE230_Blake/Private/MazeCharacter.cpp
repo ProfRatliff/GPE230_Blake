@@ -21,6 +21,7 @@ void AMazeCharacter::BeginPlay()
 
 	_gameOverScreenInstance = CreateWidget(GetWorld(), _gameOverScreenTemplate);
 	_victoryScreenInstance = CreateWidget(GetWorld(), _victoryScreenTemplate);
+	_pauseMenuInstance = CreateWidget(GetWorld(), _pauseMenuTemplate);
 }
 
 /// <summary>
@@ -97,6 +98,7 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("MoveFB"), this, &AMazeCharacter::MoveFB);
 	PlayerInputComponent->BindAxis(TEXT("MoveLR"), this, &AMazeCharacter::MoveLR);
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
+	PlayerInputComponent->BindAction(TEXT("Pause"), IE_Pressed, this, &AMazeCharacter::OpenPauseMenu);
 }
 
 void AMazeCharacter::OpenGameOverScreen()
@@ -163,6 +165,13 @@ void AMazeCharacter::MoveLR(float value)
 void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * _rotationSpeed);
+}
+
+void AMazeCharacter::OpenPauseMenu()
+{
+	_pauseMenuInstance->AddToViewport();
+	PauseGameplay(true);
+	ShowMouseCursor();
 }
 
 /// <summary>
