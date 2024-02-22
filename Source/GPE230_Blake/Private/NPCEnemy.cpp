@@ -75,6 +75,9 @@ void ANPCEnemy::DetectHit()
 				// Apply damage to the hit actor
 				UGameplayStatics::ApplyDamage(HitResult.GetActor(), _HitDamage, GetController(), this, UDamageType::StaticClass());
 
+				UGameplayStatics::PlaySound2D(this, _punchSound);
+				UGameplayStatics::PlaySoundAtLocation(GetWorld(), _punchSound, GetActorLocation());
+
 				canDamage = false;
 			}
 		}

@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Sound/SoundWave.h"
+#include "Kismet/GameplayStatics.h"
 #include "NPCEnemy.generated.h"
 
 UCLASS()
@@ -36,4 +38,6 @@ private:
 		FName _PunchingHandSocketName;
 	UPROPERTY(EditAnywhere)
 		float _HitDamage;
+	UPROPERTY(EditAnywhere)
+		USoundWave* _punchSound;
 };
